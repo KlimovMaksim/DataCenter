@@ -14,11 +14,14 @@ public class Main {
         	String[] eventSplit;
             event = sc.nextLine();
             eventSplit = event.split(" ");
+            
             for (int i = 0; i < 3; i++) {
             	inputValues[i] = Integer.parseInt(eventSplit[i]);
             }
             int eventCount = inputValues[2];
+            
             DataCenter[] dcArray = new DataCenter[inputValues[0]];
+            
             for (int i = 0; i < dcArray.length; i++) { dcArray[i] = new DataCenter(inputValues[1]); }
             
             for (int i = 0; i < eventCount; i++) {
