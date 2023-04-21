@@ -2,11 +2,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.HashSet;
 
 public class Main {
 	public static void main(String[] args){
 		long timer = System.currentTimeMillis();
-		File file = new File("./resources/input1.txt");
+		File file = new File("./resources/input2.txt");
         try (Scanner sc = new Scanner(file, StandardCharsets.UTF_8))
         {
             int[] inputValues = new int[3];
@@ -82,25 +83,24 @@ public class Main {
 class DataCenter {
 	// число перезапусков i-го дата-центра
 	private int resetCount;
-	// серверы дата-центра: выкл -- -1; вкл -- 0
-	int[] servers;
+	// число серверов в дата-центре
+	private int serversCount;
+	// множество выключенных серверо 
+	HashSet<Integer> serversSet;
 	
 	DataCenter(int serversCount) { 
-		servers = new int[serversCount]; 
+		this.serversCount = serversCount;
+		serversSet = new HashSet<Integer>(serversCount); 
 		resetCount = 0;	
-		}
+	}
 	
 	public void reset() { 
 		resetCount++;
-		for (int i = 0; i < servers.length; i++) { servers[i] = 0; }
+		serversSet.clear();
 	}
 	
-	public void disable(int serverPosition) { servers[serverPosition - 1] = -1; }
+	public void disable(int serverPosition) { serversSet.add(serverPosition); }
 	
-	public int getProduct() {
-		int count = 0;
-		for(int i = 0; i < servers.length; i++) { if (servers[i] == 0) {count++;}}
-		return resetCount * count;
-	}
+	public int getProduct() { return resetCount * (serversCount - serversSet.size()); }
 }
 
