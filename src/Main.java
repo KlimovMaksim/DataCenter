@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.util.HashSet;
 
 public class Main {
+	public static File output = new File("./resources/output.txt");
+	
 	public static void main(String[] args){
 		long timer = System.currentTimeMillis();
 		File file = new File("./resources/input2.txt");
@@ -43,6 +45,7 @@ public class Main {
             		break;
             	}
             }
+            
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -77,6 +80,10 @@ public class Main {
 			if ((minResult > product) || (dcPosition == -1 && minResult == product)) { minResult = product; dcPosition = i; }
 		}
 		System.out.println(dcPosition + 1);
+	}
+	
+	public static void printInFile(int output) {
+		
 	}
 }
 
