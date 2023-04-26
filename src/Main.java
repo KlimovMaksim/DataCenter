@@ -1,15 +1,14 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.HashSet;
 
-public class Main {
-	public static File output = new File("./resources/output.txt");
-	
+public class Main {		
 	public static void main(String[] args){
 		long timer = System.currentTimeMillis();
-		File file = new File("./resources/input2.txt");
+		File file = new File("./resources/input1.txt");
         try (Scanner sc = new Scanner(file, StandardCharsets.UTF_8))
         {
             int[] inputValues = new int[3];
@@ -68,7 +67,7 @@ public class Main {
 				dcPosition = i; 
 			}
 		}
-		System.out.println(dcPosition + 1);
+		printInFile(dcPosition + 1);
 	}
 	
 	public static void getMin(DataCenter[] dataCentersArray) {
@@ -79,10 +78,17 @@ public class Main {
 			product = dataCentersArray[i].getProduct();
 			if ((minResult > product) || (dcPosition == -1 && minResult == product)) { minResult = product; dcPosition = i; }
 		}
-		System.out.println(dcPosition + 1);
+		printInFile(dcPosition + 1);
 	}
 	
 	public static void printInFile(int output) {
+		try (FileWriter writer = new FileWriter("./resources/output.txt", true)) {
+			writer.write(output + "\n");
+			writer.flush();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
